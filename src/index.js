@@ -27,12 +27,12 @@
 //console.log(Usuario.info());
 //console.log(IdadeUsuario);
 
-import '@babel/polyfill';
+// import '@babel/polyfill';
 
 
-const minhaPromise = () => new Promise((resolve, reject) => {
-    setTimeout(() => { resolve('OK')}, 2000);
-})
+// const minhaPromise = () => new Promise((resolve, reject) => {
+//     setTimeout(() => { resolve('OK')}, 2000);
+// })
 
 // async function executaPromise(){
 //     // segunda linha so executa assim que a primeira acabar
@@ -55,7 +55,7 @@ const minhaPromise = () => new Promise((resolve, reject) => {
 
 
 
-import axios from 'axios'
+// import axios from 'axios'
 
 // class Api {
 //     static async getUserInfo(username){
@@ -87,54 +87,85 @@ import axios from 'axios'
 
 // Funão delay aciona o .then após 1s
 
-const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+// const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 
-const executaDelay = async () => {
-    await delay(console.log('1s'));
-    await delay(console.log('2s'));
-    await delay(console.log('3s'));
-}
+// const executaDelay = async () => {
+//     await delay(console.log('1s'));
+//     await delay(console.log('2s'));
+//     await delay(console.log('3s'));
+// }
 
-//executaDelay();
+// //executaDelay();
 
 
-async function getUserGit(user){
-    try {
-        const response = await axios.get(`https://api.github.com/users/${user}`);
-        console.log(response);
+// async function getUserGit(user){
+//     try {
+//         const response = await axios.get(`https://api.github.com/users/${user}`);
+//         console.log(response);
         
-    } catch (error) {
-        console.warn('Erro na API');
+//     } catch (error) {
+//         console.warn('Erro na API');
+//     }
+// }
+
+// // getUserGit('Igorth');
+// // getUserGit('Igrf');
+
+
+// class Github {
+//     static async getRepositories(repo){
+//         try {
+//             const response = await axios.get(`https://api.github.com/repos/${repo}`);
+//             console.log(response);
+//         } catch (error) {
+//             console.warn('Erro na Api')
+//         }
+//     }
+// }
+
+// // Github.getRepositories('Igorth/how-to-setup-webpack-react-babel-');
+// // Github.getRepositories('rocketseat/dslkvmskv');
+
+
+// const buscaUsuario = async usuario => {
+//     try {
+//         const response = await axios.get(`https://api.github.com/users/${usuario}`);
+//         console.log(response);
+//     } catch (error) {
+//         console.warn('usuario nao existe')
+//     }
+// }
+
+// buscaUsuario('Igorth');
+
+
+
+class App {
+    constructor(){
+        this.repositories = [];
+
+        this.formEl = document.getElementById('repo-form');
+
+        this.registerHandlers();
+    }
+
+    registerHandlers(){
+        this.formEl.onsubmit = event => this.addRepository(event);
+    }
+
+    addRepository(){
+        event.preventDefault();
+
+        this.repositories.push({
+            nome: 'rocketseat.com.br',
+            description: 'Descricao',
+            avatar_url: 'https://avatars0.githubusercontent.com/u/28929274?v=4',
+            html_url: 'http://github.com/rocketseat/rocketseat.com.br'
+        });
+
+        console.log(this.repositories)
     }
 }
 
-// getUserGit('Igorth');
-// getUserGit('Igrf');
-
-
-class Github {
-    static async getRepositories(repo){
-        try {
-            const response = await axios.get(`https://api.github.com/repos/${repo}`);
-            console.log(response);
-        } catch (error) {
-            console.warn('Erro na Api')
-        }
-    }
-}
-
-// Github.getRepositories('Igorth/how-to-setup-webpack-react-babel-');
-// Github.getRepositories('rocketseat/dslkvmskv');
-
-
-const buscaUsuario = async usuario => {
-    try {
-        const response = await axios.get(`https://api.github.com/users/${usuario}`);
-        console.log(response);
-    } catch (error) {
-        console.warn('usuario nao existe')
-    }
-}
-
-buscaUsuario('Igorth');
+new App();
