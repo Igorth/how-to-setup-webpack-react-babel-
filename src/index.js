@@ -57,24 +57,84 @@ const minhaPromise = () => new Promise((resolve, reject) => {
 
 import axios from 'axios'
 
-class Api {
-    static async getUserInfo(username){
-        try{
-            const response = await axios.get(`https://api.github.com/users/${username}`);
-            console.log(response)
-        } catch (err) {
-            console.warn('Erro na API');
-        }        
+// class Api {
+//     static async getUserInfo(username){
+//         try{
+//             const response = await axios.get(`https://api.github.com/users/${username}`);
+//             console.log(response)
+//         } catch (err) {
+//             console.warn('Erro na API');
+//         }        
+//     }
+// }
+
+// Api.getUserInfo('Igorth');
+
+
+
+// async function searchGit(username){
+//     const response = await axios.get(`https://api.github.com/users/${username}`);
+//     console.log(response);
+// }
+
+// searchGit('Igorth')
+
+
+
+
+
+//Transforme os seguintes trechos de código utilizando async/await:
+
+// Funão delay aciona o .then após 1s
+
+const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+
+
+const executaDelay = async () => {
+    await delay(console.log('1s'));
+    await delay(console.log('2s'));
+    await delay(console.log('3s'));
+}
+
+//executaDelay();
+
+
+async function getUserGit(user){
+    try {
+        const response = await axios.get(`https://api.github.com/users/${user}`);
+        console.log(response);
+        
+    } catch (error) {
+        console.warn('Erro na API');
     }
 }
 
-Api.getUserInfo('Igorth');
+// getUserGit('Igorth');
+// getUserGit('Igrf');
 
 
-
-async function searchGit(username){
-    const response = await axios.get(`https://api.github.com/users/${username}`);
-    console.log(response);
+class Github {
+    static async getRepositories(repo){
+        try {
+            const response = await axios.get(`https://api.github.com/repos/${repo}`);
+            console.log(response);
+        } catch (error) {
+            console.warn('Erro na Api')
+        }
+    }
 }
 
-searchGit('Igorth')
+// Github.getRepositories('Igorth/how-to-setup-webpack-react-babel-');
+// Github.getRepositories('rocketseat/dslkvmskv');
+
+
+const buscaUsuario = async usuario => {
+    try {
+        const response = await axios.get(`https://api.github.com/users/${usuario}`);
+        console.log(response);
+    } catch (error) {
+        console.warn('usuario nao existe')
+    }
+}
+
+buscaUsuario('Igorth');
