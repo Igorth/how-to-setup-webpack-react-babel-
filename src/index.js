@@ -158,6 +158,18 @@ class App {
         this.formEl.onsubmit = event => this.addRepository(event);
     }
 
+    setLoading(loading = true){
+        if (loading === true) {
+            let loadingEl = document.createElement('span');
+            loadingEl.appendChild(document.createTextNode('Carregando'));
+            loadingEl.setAttribute('id', 'loading');
+
+            this.formEl.appendChild(loadingEl);
+        } else{
+            document.getElementById('loading').remove();
+        }
+    }
+
     async addRepository(){
         event.preventDefault();
 
@@ -167,20 +179,30 @@ class App {
             return;
         }
 
-        const response = await api.get(`/repos/${repoInput}`);
+        this.setLoading();
 
-        const { name, description, html_url, owner:{ avatar_url }} = response.data;
+        try {
 
-        this.repositories.push({
-            name,
-            description,
-            avatar_url,
-            html_url,
-        });
+            const response = await api.get(`/repos/${repoInput}`);
 
-        this.inputEl.value = "";
+            const { name, description, html_url, owner:{ avatar_url }} = response.data;
 
-        this.render();
+            this.repositories.push({
+                name,
+                description,
+                avatar_url,
+                html_url,
+            });
+
+            this.inputEl.value = "";
+
+            this.render();
+
+        } catch(err){
+            console.warn("Erro na API");
+        }
+        
+        this.setLoading(false);
     }
 
     render(){
